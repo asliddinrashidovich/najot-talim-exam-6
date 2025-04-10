@@ -1,5 +1,6 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { menuData } from "../data/data"
+import { Toaster } from "react-hot-toast";
 
 function Layout() {
   const location = useLocation();
@@ -12,6 +13,7 @@ function Layout() {
   }
   return (
     <div className="w-full relative">
+        <div><Toaster/></div>
         <div className="w-[241px] hidden md:block fixed top-0 left-0 bottom-0 bg-[#152259] text-center">
             <img src="/public/assets/Ellipse 6.png" alt="ellepse" className="mt-[30px] w-[65px] mx-auto mb-[22px]"/>
             <p className="text-[14px] font-[600] leading-[100%] text-[#fff] mb-[40px]" >Udemy Inter. school</p>

@@ -10,23 +10,42 @@ import Students from "./pages/students"
 import Billings from "./pages/billing"
 import Settings from "./pages/settings"
 import Exams from "./pages/exams"
+import NotFound from "./pages/not-found"
+import PropTypes from "prop-types"
+
+App.propTypes = {
+  children: PropTypes.node.isRequired
+}
 
 function App() {
+  const isAuth = () => {
+    return localStorage.getItem('token') != null
+  }
+  function ProtectedRoute({children}) {
+    const auth = isAuth()
+
+    if(auth) {
+      return children;
+    } else {
+      return <NotFound/>
+    }
+  }
   const routes = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Layout/>}>
         <Route index  element={<RegisterPage/>}/>
         <Route path="login" element={<LoginPage/>}/> 
-        <Route path="dashboard" element={<Dashboard/>}/> 
+        <Route path="dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/> 
         <Route path="teachers/" >
-          <Route index element={<Teachers/>}/>
-          <Route path="add-teacher" element={<AddTeacher/>}/> 
-          <Route path="teacher" element={<TeacherPage/>}/> 
+          <Route index element={<ProtectedRoute><Teachers/></ProtectedRoute>}/>
+          <Route path="add-teacher" element={<ProtectedRoute><AddTeacher/></ProtectedRoute>}/> 
+          <Route path="teacher" element={<ProtectedRoute><TeacherPage/></ProtectedRoute>}/> 
         </Route> 
-        <Route path="students" element={<Students/>}/> 
-        <Route path="billing" element={<Billings/>}/> 
-        <Route path="settings" element={<Settings/>}/> 
-        <Route path="exams" element={<Exams/>}/> 
+        <Route path="students" element={<ProtectedRoute><Students/></ProtectedRoute>}/> 
+        <Route path="*" element={<NotFound/>}/> 
+        <Route path="billing" element={<ProtectedRoute><Billings/></ProtectedRoute>}/> 
+        <Route path="settings" element={<ProtectedRoute><Settings/></ProtectedRoute>}/> 
+        <Route path="exams" element={<ProtectedRoute><Exams/></ProtectedRoute>}/> 
       </Route>
     )
   )

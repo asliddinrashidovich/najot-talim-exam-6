@@ -1,10 +1,18 @@
 import { Link, useNavigate } from "react-router-dom"
+import useGetData from "../hooks/getData"
+import { ScaleLoader } from "react-spinners"
 
 function Teachers() {
   const navigate = useNavigate()
   function handleClick() {
     navigate('/teachers/teacher')
   }
+  const { data: users, loading, error } = useGetData("https://api.ashyo.fullstackdev.uz/users")
+  console.log(users)
+  if (loading) return <div className="max-w-[100%] h-[100vh] flex justify-center items-center">
+      <ScaleLoader color="#17a2b7"/>
+    </div>;
+  if (error) return <p>Xatolik: {error}</p>;
     return (
       <div className="w-full md:w-[calc(100vw-241px)] px-[50px] lg:px-[50px] absolute right-0">
         <div className=" py-[10px] flex items-center justify-between">
@@ -36,16 +44,18 @@ function Teachers() {
                 </tr>
               </thead>
               <tbody>
-                <tr onClick={handleClick} className="cursor-pointer">
-                  <td className="px-[8px] py-[16px] text-[#4F4F4F] font-[500] text-[12px] leading-[100%] flex justify-start items-center gap-[7px]">
-                    <img src="/assets/person.png" alt="" />
-                    <p>Kristin Watson</p>
-                  </td>
-                  <td className="px-[8px] py-[16px] text-[#4F4F4F] font-[500] text-[12px] leading-[100%] ">Chemistry</td>
-                  <td className="px-[8px] py-[16px] text-[#4F4F4F] font-[500] text-[12px] leading-[100%] ">J SS 2</td>
-                  <td className="px-[8px] py-[16px] text-[#4F4F4F] font-[500] text-[12px] leading-[100%] ">michelle.rivera@example.com</td>
-                  <td className="px-[8px] py-[16px] text-[#4F4F4F] font-[500] text-[12px] leading-[100%] ">Female</td>
-                </tr>
+                {users.map(({ fullname, email, phone_number, role, createdAt }) => (
+                  <tr key={email} onClick={handleClick} className="cursor-pointer">
+                    <td className="px-[8px] py-[16px] text-[#4F4F4F] font-[500] text-[12px] leading-[100%] flex justify-start items-center gap-[7px]">
+                      <img src="/assets/person.png" alt="" />
+                      <p>{fullname}</p>
+                    </td>
+                    <td className="px-[8px] py-[16px] text-[#4F4F4F] font-[500] text-[12px] leading-[100%] ">{phone_number ? phone_number : 'unknown'}</td>
+                    <td className="px-[8px] py-[16px] text-[#4F4F4F] font-[500] text-[12px] leading-[100%] ">{role}</td>
+                    <td className="px-[8px] py-[16px] text-[#4F4F4F] font-[500] text-[12px] leading-[100%] ">{email}</td>
+                    <td className="px-[8px] py-[16px] text-[#4F4F4F] font-[500] text-[12px] leading-[100%] ">{createdAt}</td>
+                  </tr>
+                ))}
               </tbody>
           </table>
         </div>

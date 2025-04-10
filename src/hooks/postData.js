@@ -1,5 +1,5 @@
 import { useState } from "react";
-import apiClient from "@/api/apiClient";
+import axios from "axios";
 
 const usePostData = (url) => {
   const [loading, setLoading] = useState(false);
@@ -8,10 +8,13 @@ const usePostData = (url) => {
   const postData = async (newData) => {
     setLoading(true);
     try {
-      const response = await apiClient.post(url, newData);
+      const response = await axios.post(url, newData);
+      console.log(response)
+      localStorage.setItem('token', JSON.stringify(response.data.accessToken))
       return response.data;
     } catch (err) {
-      setError(err.message || "Something went wrong");
+      console.log(err)
+      setError(err.response.data.message);
     } finally {
       setLoading(false);
     }

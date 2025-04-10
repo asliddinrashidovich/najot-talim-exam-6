@@ -1,6 +1,13 @@
+import { useNavigate } from "react-router-dom"
 import { dashboardData } from "../data/data"
 
 function Dashboard() {
+    const navigate = useNavigate()
+    
+    function handleLogout() {
+        localStorage.clear()
+        navigate('/')
+    }
     return (
       <div className="w-full md:w-[calc(100vw-241px)] px-[50px] lg:px-[127px] absolute right-0">
           <div className=" py-[30px] flex items-center justify-between mb-[68px]">
@@ -8,7 +15,7 @@ function Dashboard() {
               watch our webinar for tips from our experts and get a limited time offer.</p>
               <div className="flex justify-between gap-[48px]">
                   <img src="/public/assets/iconoir_bell-notification.svg" className="cursor-pointer" alt="bell" />
-                  <button className="px-[35px] py-[11px] rounded-[8px] text-white bg-[#509CDB] cursor-pointer">Log out</button>
+                  <button onClick={handleLogout} className="px-[35px] py-[11px] rounded-[8px] text-white bg-[#509CDB] cursor-pointer">Log out</button>
               </div>
           </div>
           <h1 className="text-[36px] font-[600] leading-[100%] text-[#4F4F4F] ">Welcome to your dashboard, Udemy school</h1>
