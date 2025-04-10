@@ -39,7 +39,7 @@ function App() {
         <Route path="teachers/" >
           <Route index element={<ProtectedRoute><Teachers/></ProtectedRoute>}/>
           <Route path="add-teacher" element={<ProtectedRoute><AddTeacher/></ProtectedRoute>}/> 
-          <Route path="teacher" element={<ProtectedRoute><TeacherPage/></ProtectedRoute>}/> 
+          <Route path=":id" element={<ProtectedRoute><TeacherPage/></ProtectedRoute>}/> 
         </Route> 
         <Route path="students" element={<ProtectedRoute><Students/></ProtectedRoute>}/> 
         <Route path="*" element={<NotFound/>}/> 

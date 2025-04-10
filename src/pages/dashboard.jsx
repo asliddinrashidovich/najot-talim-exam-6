@@ -9,13 +9,13 @@ function Dashboard() {
         navigate('/')
     }
     return (
-      <div className="w-full md:w-[calc(100vw-241px)] px-[50px] lg:px-[127px] absolute right-0">
+      <div className="w-[calc(100vw-100px)] md:w-[calc(100vw-241px)] px-[50px] lg:px-[127px] absolute right-0">
           <div className=" py-[30px] flex items-center justify-between mb-[68px]">
               <p className="text-[16px] leading-[100%] font-[400] max-w-[65%]">Learn  how to launch faster <br />
               watch our webinar for tips from our experts and get a limited time offer.</p>
-              <div className="flex justify-between gap-[48px]">
-                  <img src="/public/assets/iconoir_bell-notification.svg" className="cursor-pointer" alt="bell" />
-                  <button onClick={handleLogout} className="px-[35px] py-[11px] rounded-[8px] text-white bg-[#509CDB] cursor-pointer">Log out</button>
+              <div className="flex justify-between gap-[10px] md:gap-[48px]">
+                  <img src="/assets/iconoir_bell-notification.svg" className="cursor-pointer" alt="bell" />
+                  <button onClick={handleLogout} className="px-[10px] md:px-[35px] py-[11px] rounded-[8px] text-white bg-[#509CDB] cursor-pointer">Log out</button>
               </div>
           </div>
           <h1 className="text-[36px] font-[600] leading-[100%] text-[#4F4F4F] ">Welcome to your dashboard, Udemy school</h1>
@@ -37,10 +37,10 @@ function Dashboard() {
           </div>
           <button className="cursor-pointer absolute right-[120px] bottom-[50px] flex items-center gap-[40px] bg-[#152259] p-[21px] rounded-[50px]">
               <div className="flex items-center gap-[8px]">
-                  <img src="/public/assets/Vector.svg" alt="call" />
+                  <img src="/assets/Vector.svg" alt="call" />
                   <span className="text-[#fff]">Support</span>
               </div>  
-              <img src="/public/assets/Vector (1).svg" alt="vector" />
+              <img src="/assets/Vector (1).svg" alt="vector" />
           </button>
       </div>
       )
