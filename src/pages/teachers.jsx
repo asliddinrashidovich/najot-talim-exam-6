@@ -1,9 +1,11 @@
 import { Link, useNavigate } from "react-router-dom"
 import useGetData from "../hooks/getData"
 import { ScaleLoader } from "react-spinners"
+import { useState } from "react"
 
 function Teachers() {
   const navigate = useNavigate()
+  const [search, setSearch] = useState('');
 
   function handleClick(id) {
     navigate(`/teachers/${id}`)
@@ -36,10 +38,10 @@ function Teachers() {
         </div>
         <div className="flex items-center gap-[10px] mb-[10px] py-[12px]">
             <img src="/assets/search.svg" className="w-[24px] h-[24px] rounded-full" alt="search" />
-            <input type="text" className="w-full text-[14px] font-[500] leading-[100%]" placeholder="Search for a student by name or email"/>
+            <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" className="w-full text-[14px] font-[500] leading-[100%]" placeholder="Search for a student by name or email"/>
         </div>
         <div className="overflow-x-auto overflow-y-auto max-h-[calc(100vh-205px)]">
-          <table className="border-separate relative  border-spacing-y-[10px] w-full">
+          {users.filter(({ fullname }) =>  fullname.toLowerCase().includes(search.toLowerCase())).length !== 0 ?  <table className="border-separate relative  border-spacing-y-[10px] w-full">
               <thead>
                 <tr>
                   <th className="text-[#424242] px-[8px] py-[16px] font-[700] text-[12px] leading-[100%] min-w-[250px] text-start">Name</th>
@@ -49,7 +51,7 @@ function Teachers() {
                 </tr>
               </thead>
               <tbody>
-                {users.map(({ fullname, email, phone_number, password, id }) => (
+                {users.filter(({ fullname }) =>  fullname.toLowerCase().includes(search.toLowerCase())).map(({ fullname, email, phone_number, password, id }) => (
                   <tr key={email} onClick={() => handleClick(id)} className="cursor-pointer">
                     <td className="px-[8px] py-[16px] text-[#4F4F4F] font-[500] text-[12px] leading-[100%] flex justify-start items-center gap-[7px]">
                       <img src="/assets/person.png" alt="" />
@@ -61,10 +63,22 @@ function Teachers() {
                   </tr>
                 ))}
               </tbody>
-          </table>
+          </table> : (
+            <div className="text-center w-[] mx-auto flex-col flex justify-center items-center">
+              <img src="/assets/no notification.png"  className="mx-auto" alt="" />
+              <h1 className="text-center mx-auto font-[600] text-[28px] leading-[100%] mt-[10px]">No Teachers at this time</h1>
+              <p className="text-[14px] font-[500] leading-[100%] mt-[10px] text-[#4F4F4F]">Teachers will appear here after they enroll in your school.  </p>
+            </div>
+          )}
         </div>
     </div>
       )
 }
 
 export default Teachers
+
+
+{/* <div className="text-center w-[] mx-auto flex-col flex justify-center items-center">
+                    <img src="/assets/no notification.png"  className="mx-auto" alt="" />
+                    <h1 className="text-center mx-auto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex debitis facilis repudiandae facere excepturi placeat, itaque enim, blanditiis suscipit vitae aliquam hic saepe maxime nam natus. Corrupti illum sapiente a?</h1>
+                  </div> */}

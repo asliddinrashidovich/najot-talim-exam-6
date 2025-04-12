@@ -1,1 +1,8 @@
 @import "tailwindcss";
+@font-face {
+    font-family: 'Kumbh';
+    src: url(/src/fonts/Kumbh_Sans/KumbhSans-VariableFont_YOPQ\,wght.ttf) format('truetype');
+}
+body {
+    font-family: 'Kumbh' ;
+}
